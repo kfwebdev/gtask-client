@@ -1,0 +1,170 @@
+body {
+	background: url('../img/bg_noise.png');
+	height: 100%;
+	min-height: 100%;
+}
+
+ol li {
+	margin-left: 1.25em;
+}
+
+p { margin: 0; }
+
+.column, .columns {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+body > .row {
+	background: white;
+	/* box-shadow: 0px 0px 3px 3px #f0f0f0;
+	margin: 0 .5em; */
+	padding: 0 .5em;
+}
+
+
+.sticky .top-bar,
+.top-bar.bottom-bar {
+	margin-bottom: 0;
+}
+
+
+#signInGoogle,
+#signedInGoogle {
+	margin-top: 10px;
+	text-align: right;
+}
+
+#header #title {
+	text-align: center;
+}
+#header #title:hover {
+	cursor: pointer;
+}
+
+#taskList > h4,
+#taskView > h4 {
+	color: gray;
+}
+
+#taskLists #newList {
+	border-radius: 0;
+}
+
+#taskLists ul > li,
+#taskList ul > li {
+	clear: both;
+	list-style-type: none;
+	padding-top: .20em;
+}
+
+#taskLists ul > li:nth-child(odd),
+#taskList ul > li:nth-child(odd) {
+	background: #f0f0f0;
+}
+
+#taskLists ul > li:nth-child(even),
+#taskList ul > li:nth-child(even) {
+	background: url('../img/bg_noise.png');
+}
+
+#taskLists ul > li.placeHolder,
+#taskList ul > li.placeHolder {
+	background: #5da423;
+	opacity: 0.75;
+}
+
+
+#taskLists ul > li > a,
+#taskList a.editTitle,
+#taskList ul > li > a {
+	/* background: red; */
+	padding: .5em 1em .5em .5em;
+}
+
+#taskLists ul > li > a,
+#taskList a.editTitle {
+	padding-right: 2em;
+}
+
+
+#taskList .reOrder {
+	padding: 0;
+	height: 32px;
+	width: 32px;
+	position: absolute;
+	top: 0;
+	vertical-align: middle;
+	background: url('../img/icon_rows.png') no-repeat 7px 8px;
+}
+
+#taskList .ui-sortable-helper {
+  box-shadow: 1px 4px 4px 1px #bbb;
+}
+
+#taskList .placeHolder {
+	margin: .5em 0;
+	height: 1.8em;
+	border: 1px solid #2ba6cb;
+}
+
+#taskList ul > li {
+	position: relative;
+}
+
+#taskList ul > li .completed {
+	margin-left: 2.2em;
+}
+
+#taskLists ul > li > .right > .editTitle {
+	margin-right: .75em;
+}
+
+#taskList ul > li > .right > .editNotes {
+	color: #999;
+	padding-right: .5em;
+}
+
+#taskList .taskId {
+	color: #ccc;
+}
+
+#taskLists a.button,
+#taskList input[type="checkbox"],
+#taskList button.tiny,
+#taskList .button.tiny {
+	margin-bottom: .75em;
+}
+
+#taskLists a.button.rename,
+#taskList a.button.editNotes {
+	margin-right: .75em;
+}
+
+#taskList textarea#editNotes {
+	margin-top: 1em;
+}
+
+#taskId {
+	font-weight: bold;
+}
+
+#editNotes {
+	height: 15em;
+}
+
+
+#statusBar {
+	margin: 0;
+	padding: .25em;
+	display: none;
+	position: absolute;
+	width: 100%;
+}
+
+#statusBar.saved h6 {
+	margin: 0;
+	padding: 0 1em;
+	color: white;
+	text-align: center;
+}

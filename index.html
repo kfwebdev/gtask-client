@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+	<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>Backbone Todo List</title>
+
+  <link rel="stylesheet" href="css/normalize.css" />
+  <link rel="stylesheet" href="css/foundation.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+  
+  <script>
+  /*if ('__proto__' in {}) {
+    document.write('<script src="js\/vendor\/zepto.min.js"><\/script>');
+    document.write('<script src="js\/vendor\/zepto-dnd.min.js"><\/script>');
+  } else {
+    document.write('<script src="\/\/ajax.googleapis.com\/ajax\/libs\/jquery\/1.9.1\/jquery.min.js"><\/script>');
+    if (!window.jQuery) { document.write('<script src="js\/vendor\/jquery-1.9.1.min.js"><\/script>'); }
+    document.write('<script src="js\/vendor\/jquery-ui-1.10.3.custom.min.js"><\/script>');
+    document.write('<script src="js\/vendor\/jquery.ui.touch-punch.min.js"><\/script>');
+  }*/
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>if (!window.jQuery) { document.write('<script src="js\/vendor\/jquery-1.9.1.min.js"><\/script>'); }</script>
+  <script src="js/vendor/jquery-ui.min.js"></script>
+  <script src="js/vendor/jquery.ui.touch-punch.min.js"></script>
+  <script src="js/vendor/underscore-min.js"></script>
+  <script src="js/vendor/backbone-min.js"></script>
+  <!--script src="js/vendor/backbone.localStorage-min.js"></script-->
+  <script src="js/vendor/custom.modernizr.js"></script>
+  <script src="js/vendor/foundation.min.js"></script>
+
+</head>
+<body>
+
+<div class="sticky"> 
+<nav class="top-bar">
+  <ul class="title-area">
+    <!-- Title Area -->
+    <li class="name">
+      <h1><a href="#">Top Bar Title </a></h1>
+    </li>
+    <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+  </ul>
+
+  <section class="top-bar-section">
+
+    <!-- Left Nav Section -->
+    <ul class="left">
+      <li class="divider hide-for-small"></li>
+      <li class="has-dropdown"><a href="#">Main Item 4</a>
+
+        <ul class="dropdown">
+          <li><label>Dropdown Level 1 Label</label></li>
+          <li class="has-dropdown"><a href="#" class="">Dropdown Level 1a</a>
+
+            <ul class="dropdown">
+              <li><a href="#">Dropdown Level 2a</a></li>
+              <li><a href="#">Dropdown Level 2b</a></li>
+              <li class="has-dropdown"><a href="#">Dropdown Level 2c</a>
+
+                <ul class="dropdown">
+                  <li><a href="#">Dropdown Level 3a</a></li>
+                  <li><a href="#">Dropdown Level 3b</a></li>
+                  <li><a href="#">Dropdown Level 3c</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Dropdown Level 2d</a></li>
+              <li><a href="#">Dropdown Level 2e</a></li>
+              <li><a href="#">Dropdown Level 2f</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Dropdown Level 1b</a></li>
+          <li><a href="#">Dropdown Level 1c</a></li>
+          <li class="divider"></li>
+          <li><label>Dropdown Level 1 Label</label></li>
+          <li><a href="#">Dropdown Level 1d</a></li>
+          <li><a href="#">Dropdown Level 1e</a></li>
+          <li><a href="#">Dropdown Level 1f</a></li>
+          <li class="divider"></li>
+          <li><a href="#">See all &rarr;</a></li>
+        </ul>
+      </li>
+      <li class="divider"></li>
+      <li class="has-form">
+        <form>
+          <div class="row collapse">
+            <div class="small-8 columns">
+              <input type="text">
+            </div>
+            <div class="small-4 columns">
+              <a href="#" class="alert button">Search</a>
+            </div>
+          </div>
+        </form>
+      </li>
+      <li class="divider show-for-small"></li>
+      <li class="has-form">
+        <a class="button" href="#">Button!</a>
+      </li>
+    </ul>
+
+    <!-- Right Nav Section -->
+    <ul class="right">
+      <li class="divider"></li>
+      <li class="active"><a href="#">Main Item 1</a></li>
+      <li class="divider"></li>
+      <li><a href="#">Main Item 2</a></li>
+      <li class="divider"></li>
+      <li class="has-dropdown"><a href="#">Main Item 3</a>
+
+        <ul class="dropdown">
+          <li class="has-dropdown"><a href="#">Dropdown Level 1a</a>
+
+            <ul class="dropdown">
+              <li><label>Dropdown Level 2 Label</label></li>
+              <li><a href="#">Dropdown Level 2a</a></li>
+              <li><a href="#">Dropdown Level 2b</a></li>
+              <li class="has-dropdown"><a href="#">Dropdown Level 2c</a>
+
+                <ul class="dropdown">
+                  <li><label>Dropdown Level 3 Label</label></li>
+                  <li><a href="#">Dropdown Level 3a</a></li>
+                  <li><a href="#">Dropdown Level 3b</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Dropdown Level 3c</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Dropdown Level 2d</a></li>
+              <li><a href="#">Dropdown Level 2e</a></li>
+              <li><a href="#">Dropdown Level 2f</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Dropdown Level 1b</a></li>
+          <li><a href="#">Dropdown Level 1c</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Dropdown Level 1d</a></li>
+          <li><a href="#">Dropdown Level 1e</a></li>
+          <li><a href="#">Dropdown Level 1f</a></li>
+          <li class="divider"></li>
+          <li><a href="#">See all &rarr;</a></li>
+        </ul>
+      </li>
+      <li class="divider"></li>
+    </ul>
+  </section>
+</nav>
+</div>
+
+<div class="row">
+	<div id="header" class="large-12 columns">
+		<h2 id="title">Home</h2>
+    <div id="taskLists" class="row collapse"></div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 columns" id="taskList" style="display:none;">
+    <form class="custom">
+      <input id="newTask" type="button" value="New Task" class="small button expand" />
+  		<ul>
+  		</ul>
+    </form>
+	</div>
+
+</div>
+
+<script src="js/gapi.js"></script>
+<script src="js/app.js"></script>
+
+
+<nav class="top-bar bottom-bar">
+  <ul class="title-area">
+    <!-- Title Area -->
+    <li class="name">
+      <h1><a href="#">Bottom Bar Title </a></h1>
+    </li>
+    <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+  </ul>
+
+  <section class="top-bar-section">
+    <!-- Left Nav Section -->
+    <ul class="left">
+      <li class="divider hide-for-small"></li>
+      <li class="has-dropdown"><a href="#">Main Item 4</a>
+
+        <ul class="dropdown">
+          <li><label>Dropdown Level 1 Label</label></li>
+          <li class="has-dropdown"><a href="#" class="">Dropdown Level 1a</a>
+
+            <ul class="dropdown">
+              <li><a href="#">Dropdown Level 2a</a></li>
+              <li><a href="#">Dropdown Level 2b</a></li>
+              <li class="has-dropdown"><a href="#">Dropdown Level 2c</a>
+
+                <ul class="dropdown">
+                  <li><a href="#">Dropdown Level 3a</a></li>
+                  <li><a href="#">Dropdown Level 3b</a></li>
+                  <li><a href="#">Dropdown Level 3c</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Dropdown Level 2d</a></li>
+              <li><a href="#">Dropdown Level 2e</a></li>
+              <li><a href="#">Dropdown Level 2f</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Dropdown Level 1b</a></li>
+          <li><a href="#">Dropdown Level 1c</a></li>
+          <li class="divider"></li>
+          <li><label>Dropdown Level 1 Label</label></li>
+          <li><a href="#">Dropdown Level 1d</a></li>
+          <li><a href="#">Dropdown Level 1e</a></li>
+          <li><a href="#">Dropdown Level 1f</a></li>
+          <li class="divider"></li>
+          <li><a href="#">See all &rarr;</a></li>
+        </ul>
+      </li>
+      <li class="divider"></li>
+      <li class="has-form">
+        <form>
+          <div class="row collapse">
+            <div class="small-8 columns">
+              <input type="text">
+            </div>
+            <div class="small-4 columns">
+              <a href="#" class="alert button">Search</a>
+            </div>
+          </div>
+        </form>
+      </li>
+      <li class="divider show-for-small"></li>
+      <li class="has-form">
+        <a class="button" href="#">Button!</a>
+      </li>
+    </ul>
+
+    <!-- Right Nav Section -->
+    <ul class="right">
+      <li class="divider"></li>
+      <li class="active"><a href="#">Main Item 1</a></li>
+      <li class="divider"></li>
+      <li><a href="#">Main Item 2</a></li>
+      <li class="divider"></li>
+      <li class="has-dropdown"><a href="#">Main Item 3</a>
+
+        <ul class="dropdown">
+          <li class="has-dropdown"><a href="#">Dropdown Level 1a</a>
+
+            <ul class="dropdown">
+              <li><label>Dropdown Level 2 Label</label></li>
+              <li><a href="#">Dropdown Level 2a</a></li>
+              <li><a href="#">Dropdown Level 2b</a></li>
+              <li class="has-dropdown"><a href="#">Dropdown Level 2c</a>
+
+                <ul class="dropdown">
+                  <li><label>Dropdown Level 3 Label</label></li>
+                  <li><a href="#">Dropdown Level 3a</a></li>
+                  <li><a href="#">Dropdown Level 3b</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Dropdown Level 3c</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Dropdown Level 2d</a></li>
+              <li><a href="#">Dropdown Level 2e</a></li>
+              <li><a href="#">Dropdown Level 2f</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Dropdown Level 1b</a></li>
+          <li><a href="#">Dropdown Level 1c</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Dropdown Level 1d</a></li>
+          <li><a href="#">Dropdown Level 1e</a></li>
+          <li><a href="#">Dropdown Level 1f</a></li>
+          <li class="divider"></li>
+          <li><a href="#">See all &rarr;</a></li>
+        </ul>
+      </li>
+      <li class="divider"></li>
+    </ul>
+  </section>
+</nav>
+
+</body>
+</html>
