@@ -82,12 +82,17 @@ body > .row {
 	padding: .5em 1em .5em .5em;
 }
 
+#taskList a.editTitle.completed {
+	color: #888;
+}
+
 #taskLists ul > li > a,
 #taskList a.editTitle {
 	padding-right: 2em;
 }
 
 
+#taskLists .reOrder,
 #taskList .reOrder {
 	padding: 0;
 	height: 32px;
@@ -102,17 +107,19 @@ body > .row {
   box-shadow: 1px 4px 4px 1px #bbb;
 }
 
+#taskLists .placeHolder,
 #taskList .placeHolder {
 	margin: .5em 0;
 	height: 1.8em;
 	border: 1px solid #2ba6cb;
 }
 
+#taskLists ul > li,
 #taskList ul > li {
 	position: relative;
 }
 
-#taskList ul > li .completed {
+#taskList ul > li input.completed {
 	margin-left: 2.2em;
 }
 
