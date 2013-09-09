@@ -1,6 +1,9 @@
+html,
+body {
+	height: 100%;
+}
 body {
 	background: url('../img/bg_noise.png');
-	height: 100%;
 	min-height: 100%;
 }
 
@@ -28,18 +31,62 @@ body > .row {
 	margin-bottom: 0;
 }
 
+.top-bar {
+	box-shadow: 0px 2px 10px 0px #666;
+}
+
 
 #signInGoogle,
 #signedInGoogle {
-	margin-top: 10px;
-	text-align: right;
+	margin: 0 10px;
 }
 
-#header #title {
-	text-align: center;
+.top-bar #home {
+	margin-left: 10px;
+	padding-left: 36px;
+	background: url('../img/icon_home_w.png') no-repeat 0 8px;
 }
+
+.top-bar.expanded #signInGoogle,
+.top-bar.expanded #signedInGoogle {
+	margin: 0 0 10px 10px;
+}
+
+#header {
+}
+
 #header #title:hover {
 	cursor: pointer;
+}
+
+#header #logout {
+	padding-left: 3em;
+	background: url('../img/icon_logout_w.png') no-repeat 7px 8px;
+}
+
+#googleLogout { 
+	display: none;
+	visibility: hidden;
+	height: 0;
+}
+
+
+#taskLists .login,
+#taskLists .loading {
+	height: 100%;
+	margin: 33% auto;
+	padding-left: 44px;
+	font-size: 3em;
+	text-align: center;
+	color: #ccc;
+	background: url('../img/loading.gif') no-repeat 0px 11px;
+	vertical-align: middle;
+}
+
+#taskLists .login {
+	font-size: 2em;
+	padding-left: 0;
+	background: none;
 }
 
 #taskList > h4,
@@ -47,15 +94,27 @@ body > .row {
 	color: gray;
 }
 
+#taskList,
+#taskLists {
+	padding-top: 1em;
+}
+
 #taskLists #newList {
-	border-radius: 0;
+	/* border-radius: 0; */
 }
 
 #taskLists ul > li,
 #taskList ul > li {
 	clear: both;
 	list-style-type: none;
-	padding-top: .20em;
+	padding: .20em 0;
+	position: relative;
+	border-radius: 16px;
+}
+
+#taskLists ul > li .right,
+#taskList ul > li .right {
+	margin-right: .3em;
 }
 
 #taskLists ul > li:nth-child(odd),
@@ -82,6 +141,13 @@ body > .row {
 	padding: .5em 1em .5em .5em;
 }
 
+#taskLists a.editTitle {
+	padding-left: 2.2em;
+	background-image: url('../img/icon_rename_w16.png');
+	background-repeat: no-repeat;
+	background-position: 5px 3px;
+}
+
 #taskList a.editTitle.completed {
 	color: #888;
 }
@@ -98,7 +164,8 @@ body > .row {
 	height: 32px;
 	width: 32px;
 	position: absolute;
-	top: 0;
+	top: -8px;
+	left: 1px;
 	vertical-align: middle;
 	background: url('../img/icon_rows.png') no-repeat 7px 8px;
 }
@@ -114,13 +181,8 @@ body > .row {
 	border: 1px solid #2ba6cb;
 }
 
-#taskLists ul > li,
-#taskList ul > li {
-	position: relative;
-}
-
 #taskList ul > li input.completed {
-	margin-left: 2.2em;
+	margin-left: 2.5em;
 }
 
 #taskLists ul > li > .right > .editTitle {
@@ -137,10 +199,12 @@ body > .row {
 }
 
 #taskLists a.button,
-#taskList input[type="checkbox"],
 #taskList button.tiny,
 #taskList .button.tiny {
 	margin-bottom: .75em;
+}
+#taskList input[type="checkbox"] {
+	margin-bottom: 0;
 }
 
 #taskLists a.button.rename,
@@ -148,8 +212,22 @@ body > .row {
 	margin-right: .75em;
 }
 
+#taskList input.editTitle,
+#taskList textarea#editNotes {
+	border-radius: 12px;
+}
+
 #taskList textarea#editNotes {
 	margin-top: 1em;
+}
+
+#taskLists ul > li a.removeList,
+#taskLists ul > li a.removeTask,
+#taskList ul > li a.removeTask {
+	padding-left: 2.2em;
+	background-image: url('../img/icon_trash_w16.png');
+	background-repeat: no-repeat;
+	background-position: 5px 3px;
 }
 
 #taskId {
@@ -165,7 +243,7 @@ body > .row {
 	margin: 0;
 	padding: .25em;
 	display: none;
-	position: absolute;
+	position: absolute; 
 	width: 100%;
 }
 

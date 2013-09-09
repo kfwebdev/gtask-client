@@ -96,8 +96,7 @@ define( function(require) {
   var listsCol = new Lists();
   var tasksCol = new Tasks();
 
-  var authView = new AuthView();
-  var headerView = new HeaderView();
+  var topBarView = new TopBarView();
 
   var listsView = new ListsView(); 
   var taskListView = new TaskListView(); 
@@ -108,13 +107,14 @@ define( function(require) {
 
   var apiManager = new ApiManager();
 
-  if (apiManager.gapi && apiManager.gapi.loggedIn) { 
-    $('body').find('#taskLists').html('Loading Google Task Lists...');
-  }
+  topBarView.apiManager = apiManager;
 
-  authView.apiManager = apiManager;
+  apiManager.on('loadingLists', function() { 
+    $('body').find('#taskLists').html('<div class="loading">Loading Google Task Lists...</div>');
+  });
 
   apiManager.on('ready', function() {
+      this.trigger('loadingLists');
       listsCol.fetch({ data: { userId: '@me' }, success: function(res) {
           routes.apiManager = apiManager;        
 
@@ -129,7 +129,7 @@ define( function(require) {
           taskListView.tasksCol = tasksCol;
           taskListView.statusBarView = statusBarView;
 
-          headerView.routes = routes;
+          topBarView.routes = routes;
 
           Backbone.history.start({ pushState: false, root: backboneRoot });
         }

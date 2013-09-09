@@ -30,32 +30,30 @@
 
 
 
-  var HeaderView = Backbone.View.extend({ 
-    el: '#header',
+  var TopBarView = Backbone.View.extend({
+    el: '.top-bar',
+
     events: {
-      'click a#addTask' : 'addTask',
-      'click h2#title' : 'index'
+      'click #home' : 'home',
+      'click #authCheck' : 'authCheck',
+      'click #authLogout' : 'authLogout'
     },
 
     initialize: function() {
-      _.bindAll(this, 'render', 'addTask');
+      _.bindAll(this, 'render');
     },
 
-    render: function() {
-      var viewHtml = '<div class="row collapse">';
-      viewHtml += '<div class="small-10 columns"><input id="taskTitle" type="text" placeholder="Add your task here!"></div>';
-      viewHtml += '<div class="small-2 columns"><a id="addTask" href="javascript:void(0);" class="button prefix success">Add Task</a></div>';
-      viewHtml += '</div>';
-      $(this.el).append(viewHtml);
+    authCheck: function() {
+      this.apiManager.checkAuth();
     },
 
-    addTask: function() {
-      taskListView.addTask();
-    },
-
-    index: function() {
+    home: function() {
       $('#taskList').hide();
       this.routes.navigate('', { trigger: true });
+    },
+
+    authLogout: function() {
+      window.open('https://accounts.google.com/logout?service=wise&sensor=false&output=embed');
     }
   });
 
@@ -100,7 +98,7 @@
       if (checked) { taskHtml += ' completed'; }
       taskHtml += '">'+title+'</a> ';
       taskHtml += '<div class="right"><a href="javascript:void(0);" class="editNotes">'+notes+'</a> ';
-      taskHtml += '<a href="javascript:void(0);" class="alert tiny button removeTask">Delete</a></div>';
+      taskHtml += '<a href="javascript:void(0);" class="alert tiny button round removeTask">Delete</a></div>';
 
 		  $(this.el).html(taskHtml);
       $(this.el).attr('cid', this.model.cid);
@@ -334,22 +332,25 @@ var TaskListView = Backbone.View.extend({
     render: function() {
       var self = this;
       var viewHtml = '<form class="custom">';
+      $('#taskList ul li').removeData().unbind().remove();
+      $('#taskLists ul li').removeData().unbind().remove();
       /*
       viewHtml += '<input id="searchText" type="text" value="Search">';
-      viewHtml += '<input id="searchTasks" type="button" value="Search" class="small button">';
+      viewHtml += '<input id="searchTasks" type="button" value="Search" class="small round button">';
       */
-      viewHtml += '<input id="newList" type="button" value="New List" class="button expand">';
+      viewHtml += '<input id="newList" type="button" value="New List" class="button expand round">';
       viewHtml += '<ul>';
 
       _.each(this.listsCol.models, function(model) {
         viewHtml += '<li cid="'+model.cid+'">';
         viewHtml += '<a class="openList" href="javascript:void(0);">'+model.get("title")+'</a>';
-        viewHtml += '<div class="right"><a href="javascript:void(0);" class="tiny button editTitle">Rename</a> ';
-        viewHtml += '<a href="javascript:void(0);" class="alert tiny button removeList">Delete</a></div></li>';
+        viewHtml += '<div class="right"><a href="javascript:void(0);" class="tiny button editTitle round">Rename</a> ';
+        viewHtml += '<a href="javascript:void(0);" class="alert tiny button round removeList">Delete</a></div></li>';
       });
 
       viewHtml += '</ul></form>'; 
       $(this.el).html(viewHtml);
+      $('#taskList').hide();
       $('#taskLists').show();
 
     },
@@ -413,8 +414,8 @@ var TaskListView = Backbone.View.extend({
     addList: function(model) {
       var viewHtml = '<li cid="'+model.cid+'">';
       viewHtml += '<a class="openList" href="javascript:void(0);">'+model.get("title")+'</a>';
-      viewHtml += '<div class="right"><a href="javascript:void(0);" class="tiny button editTitle">Rename</a> ';
-      viewHtml += '<a href="javascript:void(0);" class="alert tiny button removeList">Delete</a></div></li>';
+      viewHtml += '<div class="right"><a href="javascript:void(0);" class="tiny button round editTitle">Rename</a> ';
+      viewHtml += '<a href="javascript:void(0);" class="alert tiny button round removeList">Delete</a></div></li>';
       $(this.el).find('ul').append(viewHtml);
     },
 
@@ -531,33 +532,3 @@ var TaskListView = Backbone.View.extend({
 
 
 
-  var AuthView = Backbone.View.extend({
-    el: '#header',
-    events: {
-      'click a#authCheck' : 'authCheck',
-      'click a#logout' : 'logout'
-    },
-
-    initialize: function() {
-      _.bindAll(this, 'render');
-      this.render();
-    },
-
-    render: function() {
-      var viewHtml = '<div id="signInGoogle" class="row collapse" style="display:none;">';
-      viewHtml += '<p><a id="authCheck" href="javascript:void(0);" class="small button">Sign in with Google</a></p>';
-      viewHtml += '</div>';
-      viewHtml += '<div id="signedInGoogle" class="row collapse" style="display:none;">';
-      viewHtml += '<p>Signed in! <a id="logout" href="javascript:void(0);">Logout</a></p>';
-      viewHtml += '</div>';
-      $(this.el).prepend(viewHtml);
-    },
-
-    authCheck: function() {
-      this.apiManager.checkAuth();
-    },
-
-    logout: function() {
-      $(this.el).append('<iframe src="https://accounts.google.com/logout" style="display: none;"></iframe>');
-    }
-  });
