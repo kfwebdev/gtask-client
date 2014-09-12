@@ -1,5 +1,3 @@
-function cl(s) { console.log(s); }
-
 requirejs.config({
   baseUrl: 'js/',
   paths: {
@@ -9,10 +7,12 @@ requirejs.config({
     ],
     underscore: 'vendor/underscore-min',
     backbone: 'vendor/backbone-min',
+    marionette: 'vendor/backbone.marionette.min',
+    handlebars: 'vendor/handlebars-v2.0.0',
     foundation: 'vendor/foundation.min',
     jqueryui: 'vendor/jquery-ui.min',
     touchpunch: 'vendor/jquery.ui.touch-punch.min',
-    modernizr: 'vendor/custom.modernizr',
+    modernizr: 'vendor/custom.modernizr'
   },
 
   shim: {
@@ -21,7 +21,12 @@ requirejs.config({
         deps: ['jquery', 'underscore'],
         exports: 'Backbone'
       },
-      foundation: { deps: ['jquery'] },
+      marionette: { 
+        deps: ['backbone'],
+        exports: 'Marionette'
+      },
+      handlebars: {},
+      foundation: {},
       jqueryui: { deps: ['jquery'] },
       touchpunch: { deps: ['jqueryui'] },
       models: { deps: ['backbone'] },
@@ -34,6 +39,7 @@ define( function(require) {
     var $           = require('jquery'),
         _           = require('underscore'),
         Backbone    = require('backbone'),
+        Marionette  = require('marionette'),
         foundation  = require('foundation'),
         jqueryui    = require('jqueryui'),
         touchpunch  = require('touchpunch'),
@@ -138,3 +144,5 @@ define( function(require) {
 
 });
 
+// console log helper function
+var cl = console.dir.bind(console);
