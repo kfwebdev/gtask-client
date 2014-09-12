@@ -26,7 +26,7 @@ requirejs.config({
         exports: 'Marionette'
       },
       handlebars: {},
-      foundation: {},
+      foundation: { deps: ['jquery'] },
       jqueryui: { deps: ['jquery'] },
       touchpunch: { deps: ['jqueryui'] },
       models: { deps: ['backbone'] },
@@ -95,7 +95,7 @@ define( function(require) {
   
 
 
-  $(document).foundation();
+  $( document ).foundation();
 
   var updateTimeStamp = 0;
 
