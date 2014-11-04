@@ -50,12 +50,25 @@ define( function(require) {
 
 
 
+
+
+  // console log helper function
+  var cl = console.dir.bind(console);
+
+
+  /************************
+            GTask App
+  ************************/
+
+  var gtask = { options: {} };
+  
   /************************
             Variables
   ************************/
   
-  var scrollSpeed = 1000;
-  var backboneRoot = '/todolist/';
+  gtask.options.scrollSpeed = 1000,
+  gtask.options.backboneRoot = '/todolist/';
+  gtask.options.updateTimeStamp = 0;
 
 
 
@@ -64,21 +77,21 @@ define( function(require) {
   ************************/
 
 
-  var Router = Backbone.Router.extend({
+  gtask.Router = Backbone.Router.extend({
     routes: {
       'list/:cid' : 'openList',
       '': 'home'
     },
 
     home: function() {
-      listsView.render(); 
+      gtask.listsView.render(); 
     },
 
     openList: function(cid) {
-      if (listsCol && listsCol.length) {
-        var list = listsCol.get(cid);
+      if (gtask.listsCol && gtask.listsCol.length) {
+        var list = gtask.listsCol.get(cid);
         if (list) {
-          listsView.openList(cid); 
+          gtask.listsView.openList(cid); 
         } else {
           console.error('List not found:', cid);
         }
@@ -97,52 +110,47 @@ define( function(require) {
 
   $( document ).foundation();
 
-  var updateTimeStamp = 0;
+  gtask.listsCol = new Lists();
+  gtask.tasksCol = new Tasks();
 
-  var listsCol = new Lists();
-  var tasksCol = new Tasks();
+  gtask.topBarView = new TopBarView();
 
-  var topBarView = new TopBarView();
-
-  var listsView = new ListsView(); 
-  var taskListView = new TaskListView(); 
+  gtask.listsView = new ListsView(); 
+  gtask.taskListView = new TaskListView(); 
  
-  var routes = new Router();
+  gtask.routes = new gtask.Router();
 
-  var statusBarView = new StatusBarView({ el : 'body' });
+  gtask.statusBarView = new StatusBarView({ el : 'body' });
 
-  var apiManager = new ApiManager();
+  gtask.apiManager = new ApiManager();
 
-  topBarView.apiManager = apiManager;
+  gtask.topBarView.apiManager = gtask.apiManager;
 
-  apiManager.on('loadingLists', function() { 
+  gtask.apiManager.on('loadingLists', function() { 
     $('body').find('#taskLists').html('<div class="loading">Loading Google Task Lists...</div>');
   });
 
-  apiManager.on('ready', function() {
+  gtask.apiManager.on('ready', function() {
       this.trigger('loadingLists');
-      listsCol.fetch({ data: { userId: '@me' }, success: function(res) {
-          routes.apiManager = apiManager;        
+      gtask.listsCol.fetch({ data: { userId: '@me' }, success: function(res) {
+          gtask.routes.apiManager = gtask.apiManager;        
 
-          listsView.scrollSpeed = scrollSpeed;
-          listsView.listsCol = listsCol;
-          listsView.tasksCol = tasksCol;
-          //listsView.searchIndex = searchIndex;
-          listsView.taskListView = taskListView;
-          listsView.routes = routes;
-          listsView.statusBarView = statusBarView;
+          gtask.listsView.scrollSpeed = gtask.options.scrollSpeed;
+          gtask.listsView.listsCol = gtask.listsCol;
+          gtask.listsView.tasksCol = gtask.tasksCol;
+          //gtask.listsView.searchIndex = gtask.searchIndex;
+          gtask.listsView.taskListView = gtask.taskListView;
+          gtask.listsView.routes = gtask.routes;
+          gtask.listsView.statusBarView = gtask.statusBarView;
 
-          taskListView.tasksCol = tasksCol;
-          taskListView.statusBarView = statusBarView;
+          gtask.taskListView.tasksCol = gtask.tasksCol;
+          gtask.taskListView.statusBarView = gtask.statusBarView;
 
-          topBarView.routes = routes;
+          gtask.topBarView.routes = gtask.routes;
 
-          Backbone.history.start({ pushState: false, root: backboneRoot });
+          Backbone.history.start({ pushState: false, root: gtask.options.backboneRoot });
         }
       });
   });
 
 });
-
-// console log helper function
-var cl = console.dir.bind(console);
